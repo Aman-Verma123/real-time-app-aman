@@ -13,7 +13,8 @@ const Signup = () => {
     try{
 
       const res = await axios.post(
-        "http://localhost:5000/register",
+        // "http://localhost:5000/register",
+        "https://real-time-app-aman-backend.onrender.com/register",
         {
           name,
           email,

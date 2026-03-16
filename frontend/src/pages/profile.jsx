@@ -21,7 +21,8 @@ const Profile = () => {
 
       try{
 
-        const res = await axios.get(`http://localhost:5000/users/${id}`);
+        // const res = await axios.get(`http://localhost:5000/users/${id}`);
+        const res = await axios.get(`https://real-time-app-aman-backend.onrender.com/users/${id}`);
 
         setUser(res.data);
         setName(res.data.name);
@@ -42,7 +43,10 @@ const Profile = () => {
 
     try{
 
-      const res = await axios.put(`http://localhost:5000/users/${id}`,{
+      // const res = await axios.put(`http://localhost:5000/users/${id}`,{
+      const res = await axios.put(`https://real-time-app-aman-backend.onrender.com/users/${id}`,{
+        
+      
         name,
         email
       });
@@ -65,7 +69,8 @@ const Profile = () => {
 
     try{
 
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      // await axios.delete(`http://localhost:5000/users/${id}`);
+      await axios.delete(`https://real-time-app-aman-backend.onrender.com/users/${id}`);
 
       alert("Account deleted");
 

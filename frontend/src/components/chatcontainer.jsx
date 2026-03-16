@@ -111,7 +111,8 @@ const Chatcontainer = ({ selectedUser, setShowSidebar, setShowRightSidebar, onli
 
 
       const res = await axios.get(
-        "http://localhost:5000/messages",
+        // "http://localhost:5000/messages",
+        "https://real-time-app-aman-backend.onrender.com/messages",
         {
           params: {
             senderId: currentUser._id,
@@ -176,7 +177,8 @@ const Chatcontainer = ({ selectedUser, setShowSidebar, setShowRightSidebar, onli
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/send-message",
+        // "http://localhost:5000/send-message",
+        "https://real-time-app-aman-backend.onrender.com/send-message",
         data
       );
 
@@ -305,9 +307,9 @@ const Chatcontainer = ({ selectedUser, setShowSidebar, setShowRightSidebar, onli
            {/* video call/ audio call btns */}
 
            <div className="call-buttons">
-  {/* <button onClick={startAudioCall}>📞</button>
-  <button onClick={startVideoCall}>📹</button> */}
-    <button ><IoIosCall /></button>
+  
+  {/* <button onClick={startVideoCall}>📹</button> */}
+    
     <Link to="/videocall" state={{ user: selectedUser }}><button><MdMissedVideoCall /></button></Link>
   
 
