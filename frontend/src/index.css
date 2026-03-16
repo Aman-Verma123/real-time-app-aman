@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+
+
+*{
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.bg_for_all{
+   background-image: url("https://www.itl.cat/pngfile/big/0-596_originalhd-whatsapp-background-wallpapers-wallpaper.jpg");
+  background-size: cover;       /* image full screen cover kare */
+  background-position: center;  /* image center me rahe */
+  background-repeat: no-repeat; /* image repeat na ho */
+   min-height: 100vh; 
+   color: white;
+}
+
+.chat-layout{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  backdrop-filter: blur(2px);
+}
+
+/* Sidebar */
+
+.sidebar{
+  width: 280px;
+  min-width: 260px;
+  background: rgba(17,25,40,0.75);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255,255,255,0.1);
+  overflow-y: auto;
+}
+
+/* Chat container */
+
+.chat-container{
+  flex: 1;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right sidebar */
+
+.right-sidebar{
+  width: 300px;
+  background: rgba(17,25,40,0.75);
+  backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Smooth animation */
+
+.right-sidebar{
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn{
+  from{
+    transform: translateX(100%);
+    opacity:0;
+  }
+  to{
+    transform: translateX(0);
+    opacity:1;
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 900px){
+
+  .right-sidebar{
+    display:none;
+  }
+
+  .sidebar{
+    width: 220px;
+  }
+
+}
+
+.search_input{
+  padding: 14px 22px;
+  border-radius: 6px;
+  /* background-color: rgba(255, 255, 255, 0.1); */
+
+  border: none;
+}
+.search_icon{
+  font-size: 20px;
+  background-color: rgba(56, 84, 114, 0.589);
+  padding: 2px;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 74, 74, 0.452);
+} 
+.slide_heading{
+  animation: slideDown 0.5s ease;
+  padding: 10px 15px;
+  text-align: center;
+  backdrop-filter: 10px;
+  background-color: rgb(31, 50, 66);
+}
+
+.users_box{
+  animation: slideIn 0.3s ease;
+  margin: 8px 7px;
+}
+.search_box{
+  border-radius: 7px;
+/* background-color: burlywood; */
+margin-top: 10px;
+margin-left: 5px;
+margin-right: 5px;
+margin-bottom: 10px;
+padding-left: 3px;
+}
+
+.logout_btn{
+  background-color: rgb(245, 74, 74);
+  border: none;
+  transition: background-color 0.3s ease;
+  padding-top: 10px;
+
+  padding-bottom: 10px;
+  padding-left: 3px;
+}
+.logout_btn:hover{
+  background-color: rgb(255, 0, 0);
+}
+.logout_upper{
+  margin: 10px 5px;
+  margin-top: 5px;
+}
+.popup_msg{
+  margin-left: auto;        /* right side push karega */
+  min-width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2px 6px;
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color: white;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  border-radius: 999px;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}

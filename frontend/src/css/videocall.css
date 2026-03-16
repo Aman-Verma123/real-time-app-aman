@@ -1,0 +1,245 @@
+.video-page{
+height:100vh;
+display:flex;
+flex-direction:column;
+background:linear-gradient(135deg,#0f172a,#020617);
+color:white;
+font-family:Segoe UI, sans-serif;
+/* overflow:hidden; */
+}
+
+/* NAVBAR */
+
+.video-navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 20px;
+background:rgba(15,23,42,0.7);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.video-navbar h2{
+font-size:18px;
+font-weight:600;
+}
+
+.user-info{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.user-info img{
+width:32px;
+height:32px;
+border-radius:50%;
+object-fit:cover;
+border:1px solid #22c55e;
+}
+
+/* VIDEO AREA */
+
+.video-area{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+padding:15px;
+}
+
+/* RECEIVER VIDEO */
+
+.receiver-box{
+width:70%;
+max-width:650px;
+height:420px;
+background:#111827;
+border-radius:18px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+overflow:hidden;
+}
+
+.receiver-box h3{
+margin-bottom:10px;
+font-size:20px;
+opacity:0.9;
+}
+
+.video-placeholder{
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+color:#9ca3af;
+background:linear-gradient(145deg,#111827,#020617);
+}
+
+/* MY VIDEO */
+
+.sender-box{
+position:absolute;
+bottom:110px;
+right:40px;
+}
+
+.video-placeholder.small{
+width:220px;
+height:150px;
+border-radius:12px;
+background:#1f2937;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.6);
+}
+
+/* CALL CONTROLS */
+
+.call-controls{
+display:flex;
+justify-content:center;
+gap:25px;
+/* padding:15px; */
+background:rgba(2,6,23,0.8);
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* BUTTON STYLE */
+
+.call-btn{
+width:50px;
+height:50px;
+border-radius:50%;
+border:none;
+font-size:22px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+color:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* COLORS */
+
+.call-btn.green{
+background:#22c55e;
+}
+
+.call-btn.blue{
+background:#3b82f6;
+}
+
+.call-btn.gray{
+background:#6b7280;
+}
+
+.call-btn.red{
+background:#ef4444;
+}
+
+/* HOVER */
+
+.call-btn:hover{
+transform:scale(1.08);
+opacity:0.9;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:900px){
+
+.receiver-box{
+width:95%;
+height:400px;
+}
+
+.video-placeholder.small{
+width:140px;
+height:90px;
+}
+
+.sender-box{
+right:20px;
+bottom:100px;
+}
+
+.call-btn{
+width:40px;
+height:40px;
+font-size:18px;
+}
+
+}
+
+@media(max-width:500px){
+
+.video-navbar h2{
+font-size:15px;
+}
+
+.receiver-box{
+height:260px;
+}
+
+.video-placeholder.small{
+width:120px;
+height:80px;
+}
+
+.call-controls{
+gap:15px;
+}
+
+}
+
+
+.incoming-call-popup{
+position:fixed;
+top:40%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#111;
+padding:30px;
+border-radius:10px;
+text-align:center;
+color:white;
+z-index:999;
+}
+
+.popup-buttons{
+display:flex;
+gap:15px;
+justify-content:center;
+margin-top:10px;
+}
+
+.accept-btn{
+background:green;
+color:white;
+border:none;
+padding:10px 20px;
+cursor:pointer;
+border-radius:5px;
+}
+
+.reject-btn{
+background:red;
+color:white;
+border:none;
+padding:10px 20px;
+cursor:pointer;
+border-radius:5px;
+}
