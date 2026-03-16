@@ -91,7 +91,8 @@ if(currentUser){
 
   useEffect(() => {
 
-    axios.get("http://localhost:5000/users")
+    // axios.get("http://localhost:5000/users")
+      axios.get("https://real-time-app-aman-backend.onrender.com/users")
       .then((res) => {
         setUsers(res.data);
       })
