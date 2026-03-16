@@ -7,10 +7,10 @@ import { socket } from "../socket";
 
 const Videocall = () => {
 
-const [incomingCall, setIncomingCall] = useState(null);
-
 const location = useLocation();
 const selectedUser = location.state?.user;
+
+const [incomingCall,setIncomingCall] = useState(null);
 
 const myVideo = useRef(null);
 const userVideo = useRef(null);
@@ -21,34 +21,31 @@ const streamRef = useRef(null);
 const currentUser = JSON.parse(localStorage.getItem("user"));
 
 
-// START CAMERA
-useEffect(() => {
-
-socket.emit("userOnline", currentUser._id);
-
-const startCamera = async () => {
-
-const stream = await navigator.mediaDevices.getUserMedia({
-video:true,
-audio:true
-});
-
-streamRef.current = stream;
-
-if(myVideo.current){
-myVideo.current.srcObject = stream;
-}
-
-peerRef.current = new RTCPeerConnection({
+// ICE SERVERS (STUN + TURN)
+const iceConfig = {
 iceServers:[
+{ urls:"stun:stun.l.google.com:19302" },
 {
-urls:"stun:stun.l.google.com:19302"
+urls:"turn:openrelay.metered.ca:80",
+username:"openrelayproject",
+credential:"openrelayproject"
+},
+{
+urls:"turn:openrelay.metered.ca:443",
+username:"openrelayproject",
+credential:"openrelayproject"
 }
 ]
-});
+};
 
-stream.getTracks().forEach(track=>{
-peerRef.current.addTrack(track, stream);
+
+// CREATE PEER
+const createPeer = (targetUser) => {
+
+peerRef.current = new RTCPeerConnection(iceConfig);
+
+streamRef.current.getTracks().forEach(track=>{
+peerRef.current.addTrack(track,streamRef.current);
 });
 
 peerRef.current.ontrack = (event)=>{
@@ -62,13 +59,38 @@ peerRef.current.onicecandidate = (event)=>{
 if(event.candidate){
 
 socket.emit("ice-candidate",{
-to: incomingCall?.from || selectedUser?._id,
+to:targetUser,
 candidate:event.candidate
 });
 
 }
 
 };
+
+peerRef.current.onconnectionstatechange = ()=>{
+console.log("Connection State:",peerRef.current.connectionState);
+};
+
+};
+
+
+// START CAMERA
+useEffect(()=>{
+
+socket.emit("userOnline",currentUser._id);
+
+const startCamera = async ()=>{
+
+const stream = await navigator.mediaDevices.getUserMedia({
+video:true,
+audio:true
+});
+
+streamRef.current = stream;
+
+if(myVideo.current){
+myVideo.current.srcObject = stream;
+}
 
 };
 
@@ -77,8 +99,10 @@ startCamera();
 },[]);
 
 
-// START CALL (Caller)
-const startCall = async () => {
+// START CALL
+const startCall = async ()=>{
+
+createPeer(selectedUser._id);
 
 const offer = await peerRef.current.createOffer();
 
@@ -93,10 +117,12 @@ from:currentUser._id
 };
 
 
-// ACCEPT CALL (Receiver)
-const acceptCall = async () => {
+// ACCEPT CALL
+const acceptCall = async ()=>{
 
 const {from,offer} = incomingCall;
+
+createPeer(from);
 
 await peerRef.current.setRemoteDescription(offer);
 
@@ -115,72 +141,49 @@ setIncomingCall(null);
 
 
 // REJECT CALL
-const rejectCall = () => {
+const rejectCall = ()=>{
 setIncomingCall(null);
+};
+
+
+// END CALL
+const endCall = ()=>{
+
+if(peerRef.current){
+peerRef.current.close();
+peerRef.current = null;
+}
+
+if(userVideo.current){
+userVideo.current.srcObject = null;
+}
+
 };
 
 
 // SOCKET EVENTS
 useEffect(()=>{
 
-// incoming call
-socket.on("incoming-call", ({from,offer})=>{
+socket.on("incoming-call",({from,offer})=>{
 
 setIncomingCall({from,offer});
 
-if(!peerRef.current){
-
-peerRef.current = new RTCPeerConnection({
-iceServers:[
-{urls:"stun:stun.l.google.com:19302"}
-]
-});
-
-}
-
-if(streamRef.current){
-
-streamRef.current.getTracks().forEach(track=>{
-peerRef.current.addTrack(track, streamRef.current);
-});
-
-}
-
-peerRef.current.ontrack = (event)=>{
-if(userVideo.current){
-userVideo.current.srcObject = event.streams[0];
-}
-};
-
-peerRef.current.onicecandidate = (event)=>{
-
-if(event.candidate){
-
-socket.emit("ice-candidate",{
-to:from,
-candidate:event.candidate
-});
-
-}
-
-};
-
 });
 
 
-// caller receives answer
-socket.on("call-accepted", async ({answer})=>{
+socket.on("call-accepted",async ({answer})=>{
 
 await peerRef.current.setRemoteDescription(answer);
 
 });
 
 
-// ICE candidate receive
-socket.on("ice-candidate", async ({candidate})=>{
+socket.on("ice-candidate",async ({candidate})=>{
 
 try{
+
 await peerRef.current.addIceCandidate(candidate);
+
 }catch(err){
 console.log(err);
 }
@@ -235,7 +238,7 @@ Reject
 
 <div className="user-info">
 
-<img src={selectedUser?.img} alt="user" />
+<img src={selectedUser?.img} alt="user"/>
 
 <span>{selectedUser?.name}</span>
 
@@ -283,7 +286,7 @@ className="video-placeholder small"
 <FaMicrophone/>
 </button>
 
-<button className="call-btn red">
+<button className="call-btn red" onClick={endCall}>
 <MdCallEnd/>
 </button>
 
