@@ -62,6 +62,8 @@ const Login = () => {
       <button onClick={loginUser}>
         Login
       </button>
+      {/* signUp direct link  */}
+  <Link to="/signup">Don't have an account? <span className="button">Sign up here</span></Link>
 
     </div>
     </div>

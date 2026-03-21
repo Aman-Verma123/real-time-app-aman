@@ -1,11 +1,12 @@
 .video-page{
-height:100vh;
+/* height:100vh; */
+ height:100dvh; 
 display:flex;
 flex-direction:column;
 background:linear-gradient(135deg,#0f172a,#020617);
 color:white;
 font-family:Segoe UI, sans-serif;
-/* overflow:hidden; */
+overflow:hidden;
 }
 
 /* NAVBAR */
@@ -42,6 +43,7 @@ border:1px solid #22c55e;
 /* VIDEO AREA */
 
 .video-area{
+  min-height:0;  
 flex:1;
 display:flex;
 justify-content:center;
@@ -53,10 +55,10 @@ padding:15px;
 /* RECEIVER VIDEO */
 
 .receiver-box{
-width:70%;
-max-width:650px;
-height:420px;
-background:#111827;
+/* width:70%; */
+/* max-width:650px; */
+/* height:420px; */
+/* background:#111827; */
 border-radius:18px;
 display:flex;
 flex-direction:column;
@@ -65,6 +67,16 @@ justify-content:center;
 box-shadow:0 10px 40px rgba(0,0,0,0.6);
 overflow:hidden;
 }
+
+.receiver-box{
+  width:100%;
+  max-width:650px;
+  aspect-ratio:16/9;  /* 🔥 best for video */
+  background:#111827;
+  border-radius:18px;
+  overflow:hidden;
+}
+
 
 .receiver-box h3{
 margin-bottom:10px;
@@ -87,13 +99,13 @@ background:linear-gradient(145deg,#111827,#020617);
 
 .sender-box{
 position:absolute;
-bottom:110px;
-right:40px;
+bottom:90px;
+right:15px;
 }
 
 .video-placeholder.small{
-width:220px;
-height:150px;
+  width:120px;
+  height:80px;
 border-radius:12px;
 background:#1f2937;
 display:flex;
@@ -102,6 +114,8 @@ justify-content:center;
 font-size:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.6);
 }
+
+
 
 /* CALL CONTROLS */
 
