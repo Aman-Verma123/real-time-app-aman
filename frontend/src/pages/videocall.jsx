@@ -181,10 +181,9 @@ await peerRef.current.setRemoteDescription(answer);
 socket.on("ice-candidate",async ({candidate})=>{
 
 try{
-
 await peerRef.current.addIceCandidate(candidate);
-
-}catch(err){
+}
+catch(err){
 console.log(err);
 }
 
@@ -250,27 +249,12 @@ Reject
 <div className="video-area">
 
 <div className="receiver-box">
-
-<video
-ref={userVideo}
-autoPlay
-playsInline
-className="video-placeholder"
-/>
-
+     <video ref={userVideo} autoPlay playsInline className="video-placeholder"/>
 </div>
 
 
 <div className="sender-box">
-
-<video
-ref={myVideo}
-autoPlay
-playsInline
-muted
-className="video-placeholder small"
-/>
-
+     <video ref={myVideo} autoPlay  playsInline muted className="video-placeholder small"/>
 </div>
 
 </div>
@@ -295,9 +279,6 @@ className="video-placeholder small"
 </div>
 
 </>
-
-);
-
-};
+);};
 
 export default Videocall;
