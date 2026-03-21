@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../css/auth.css";
+// import Link 
+import { Link } from "react-router-dom";
+
 const Login = () => {
 
   const [email,setEmail] = useState("");
@@ -39,6 +42,7 @@ const Login = () => {
   };
 
   return (
+    <>
     <div className="auth_page">
       
     <div className="auth-container">
@@ -63,11 +67,13 @@ const Login = () => {
         Login
       </button>
       {/* signUp direct link  */}
-  <Link to="/signup">Don't have an account? <span className="button">Sign up here</span></Link>
 
     </div>
     </div>
-  );
+  <Link to="/signup">Don't have an account? <span className="button">Sign up here</span></Link>
+</> 
+
+);
 };
 
 export default Login;

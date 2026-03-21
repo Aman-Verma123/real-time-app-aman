@@ -34,6 +34,7 @@ const Signup = () => {
   };
 
   return (
+    <>
     <div className="auth_page">
       
     <div className="auth-container">
@@ -67,8 +68,10 @@ const Signup = () => {
 
 
     </div>
-    <Link to="/login">Already have an account? <span className="button">Login here</span></Link>
     </div>
+    <Link to="/login">Already have an account? <span className="button">Login here</span></Link>
+
+    </>
   );
 };
 
