@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../css/auth.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Signup = () => {
+
+ const navigate = useNavigate(); // ✅ ADD THIS
+
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if(token){
+    navigate("/");
+  }
+}, []);
+
 
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
   const registerUser = async () => {
+
+      if(!name || !email || !password){
+    alert("All fields are required");
+    return;
+      }
+
 
     try{
 
@@ -23,7 +42,16 @@ const Signup = () => {
         }
       );
 
+  const token = res.data.token;
+      const user = res.data.user;
+
+      // ✅ Store same as login
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+
       alert("User created successfully");
+         navigate("/");
 
     }
     catch(err){
@@ -68,8 +96,8 @@ const Signup = () => {
 
 
     </div>
-    </div>
     <Link to="/login">Already have an account? <span className="button">Login here</span></Link>
+    </div>
 
     </>
   );
