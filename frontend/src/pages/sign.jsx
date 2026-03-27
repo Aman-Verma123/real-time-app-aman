@@ -96,8 +96,8 @@ useEffect(() => {
       </button>
 
 
-    </div>
     <Link to="/login">Already have an account? <span className="button">Login here</span></Link>
+    </div>
     </div>
 
     </>
